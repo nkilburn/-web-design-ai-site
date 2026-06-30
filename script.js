@@ -1,23 +1,34 @@
 console.log("Website is connected.");
 
-const tipOutput = document.getElementById('tip-output');
-const generateTip = document.getElementById('generate-tip');
-const learnMore = document.getElementById('learn-more');
+const contactForm = document.querySelector(".contact-form");
+const successMessage = document.querySelector(".success-message");
+const errorMessage = document.querySelector(".error-message");
+const pillButtons = document.querySelectorAll(".pill-button");
 
-const tips = [
-  'Use a strong visual hierarchy to guide visitors through your page.',
-  'Keep buttons clear and bold, with a single action per section.',
-  'Use whitespace intentionally to make content feel modern and uncluttered.',
-  'Select a limited color palette to strengthen your brand identity.',
-  'Optimize images and fonts so the page loads quickly on any device.',
-];
+pillButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    const group = button.closest(".pill-group");
+    if (!group) return;
 
-function showRandomTip() {
-  const tip = tips[Math.floor(Math.random() * tips.length)];
-  tipOutput.textContent = tip;
-}
+    const currentlyActive = group.querySelector(".pill-button.active");
+    if (currentlyActive && currentlyActive !== button) {
+      currentlyActive.classList.remove("active");
+    }
 
-generateTip.addEventListener('click', showRandomTip);
-learnMore.addEventListener('click', () => {
-  tipOutput.textContent = 'AI design works best when you mix smart templates with your own creativity.';
+    button.classList.add("active");
+  });
 });
+
+if (contactForm) {
+  contactForm.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    if (successMessage && errorMessage) {
+      successMessage.style.display = "block";
+      errorMessage.style.display = "none";
+    }
+
+    contactForm.reset();
+    pillButtons.forEach((button) => button.classList.remove("active"));
+  });
+}
