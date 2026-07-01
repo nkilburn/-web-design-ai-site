@@ -11,7 +11,9 @@
   --text-gray: #aeb4bf;
   --text-muted: #6f7782;
   --border-dark: #111111;
+  --border-light: #d7dde7;
 }
+
 
 body {
   background-color: var(--bg-color);
@@ -497,109 +499,7 @@ body {
   }
 }
 
-.contact-form {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
 
-.form-group {
-  display: flex;
-  flex-direction: column;
-}
-
-.form-group label {
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--text-dark);
-  margin-bottom: 10px;
-}
-
-.form-group input,
-.form-group textarea {
-  width: 100%;
-  padding: 18px 20px;
-  font-size: 16px;
-  font-family: inherit;
-  color: var(--text-dark);
-  background-color: var(--bg-color);
-  border: 1px solid var(--border-light);
-  border-radius: 18px;
-  outline: none;
-  transition: border-color 0.2s ease, background-color 0.2s ease;
-}
-
-.form-group input:focus,
-.form-group textarea:focus {
-  border-color: var(--text-dark);
-  background-color: #ffffff;
-}
-
-.form-group textarea {
-  resize: vertical;
-  min-height: 160px;
-}
-
-.contact-button {
-  align-self: flex-start;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 18px 34px;
-  border: none;
-  border-radius: 999px;
-  background-color: var(--text-dark);
-  color: #ffffff;
-  font-size: 17px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: opacity 0.2s ease;
-}
-
-.contact-button:hover {
-  opacity: 0.85;
-}
-
-.form-message {
-  display: none;
-  font-size: 15px;
-  margin-top: 8px;
-}
-
-.success-message {
-  color: #2f7a46;
-}
-
-.error-message {
-  color: #a33a3a;
-}
-
-@media (max-width: 768px) {
-  .contact-section {
-    padding: 80px 20px;
-  }
-
-  .contact-heading {
-    font-size: clamp(32px, 9vw, 48px);
-  }
-
-  .contact-text {
-    font-size: 18px;
-    margin-bottom: 36px;
-  }
-
-  .contact-button {
-    width: 100%;
-    justify-content: center;
-  }
-}
-
-.pill-group {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 14px;
-  margin-top: 8px;
-}
 
 .site-footer {
   padding: 40px 20px;
@@ -648,3 +548,105 @@ body {
   }
 }
 /* Removed custom cursor styles to avoid conflicts with the menu toggle */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  cursor: none;
+}
+
+.cursor-dot,
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+}
+
+.cursor-dot {
+  width: 8px;
+  height: 8px;
+  background-color: var(--text-dark);
+  border-radius: 50%;
+}
+
+.cursor-ring {
+  width: 32px;
+  height: 32px;
+  border: 1.5px solid var(--text-gray);
+  border-radius: 50%;
+  background-color: transparent;
+  transition:
+    width 0.25s ease,
+    height 0.25s ease,
+    border-color 0.25s ease,
+    background-color 0.25s ease,
+    transform 0.2s ease;
+}
+
+.cursor-ring.cursor-hover {
+  width: 52px;
+  height: 52px;
+  border-color: var(--text-dark);
+  background-color: rgba(5, 8, 22, 0.03);
+}
+
+.about-section,
+.works-section,
+.contact-section,
+.work-card {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.about-section.revealed,
+.works-section.revealed,
+.contact-section.revealed,
+.work-card.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.work-card {
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.work-card:hover {
+  transform: translateY(-6px);
+}
+
+.hero-button,
+.contact-button,
+.pill-button,
+.nav-toggle,
+.footer-nav a,
+.site-menu a {
+  transition:
+    transform 0.25s ease,
+    opacity 0.25s ease,
+    color 0.25s ease,
+    background-color 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.hero-button:hover,
+.contact-button:hover,
+.pill-button:hover,
+.nav-toggle:hover {
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  body {
+    cursor: auto;
+  }
+
+  .cursor-dot,
+  .cursor-ring {
+    display: none;
+  }
+}

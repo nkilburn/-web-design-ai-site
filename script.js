@@ -7,9 +7,27 @@ document.addEventListener("DOMContentLoaded", () => {
   const errorMessage = document.querySelector(".error-message");
   const pillButtons = document.querySelectorAll(".pill-button");
 
+  const cursorDot = document.querySelector(".cursor-dot");
+  const cursorRing = document.querySelector(".cursor-ring");
+  const hoverTargets = document.querySelectorAll(
+    "a, button, .work-card, .pill-button, input, textarea"
+  );
+
+  const revealElements = document.querySelectorAll(
+    ".about-section, .works-section, .contact-section, .work-card"
+  );
+
+  let mouseX = 0;
+  let mouseY = 0;
+  let ringX = 0;
+  let ringY = 0;
+
   if (navToggles.length) {
     navToggles.forEach((navToggle) => {
-      const siteMenu = navToggle.closest(".site-header")?.querySelector(".site-menu") || document.querySelector(".site-menu");
+      const siteMenu =
+        navToggle.closest(".site-header")?.querySelector(".site-menu") ||
+        document.querySelector(".site-menu");
+
       if (!siteMenu) return;
 
       navToggle.addEventListener("click", (event) => {
@@ -24,8 +42,13 @@ document.addEventListener("DOMContentLoaded", () => {
       const isToggleClick = event.target.closest(".nav-toggle");
 
       if (!isMenuClick && !isToggleClick) {
-        document.querySelectorAll(".site-menu.open").forEach((menu) => menu.classList.remove("open"));
-        document.querySelectorAll(".nav-toggle[aria-expanded='true']").forEach((toggle) => toggle.setAttribute("aria-expanded", "false"));
+        document
+          .querySelectorAll(".site-menu.open")
+          .forEach((menu) => menu.classList.remove("open"));
+
+        document
+          .querySelectorAll(".nav-toggle[aria-expanded='true']")
+          .forEach((toggle) => toggle.setAttribute("aria-expanded", "false"));
       }
     });
   }
@@ -45,16 +68,70 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   if (contactForm) {
-    contactForm.addEventListener("submit", function (event) {
+    contactForm.addEventListener("submit", (event) => {
       event.preventDefault();
 
-      if (successMessage && errorMessage) {
+      if (successMessage) {
         successMessage.style.display = "block";
+      }
+
+      if (errorMessage) {
         errorMessage.style.display = "none";
       }
 
       contactForm.reset();
       pillButtons.forEach((button) => button.classList.remove("active"));
+    });
+  }
+
+  if (cursorDot && cursorRing) {
+    document.addEventListener("mousemove", (event) => {
+      mouseX = event.clientX;
+      mouseY = event.clientY;
+
+      cursorDot.style.left = `${mouseX}px`;
+      cursorDot.style.top = `${mouseY}px`;
+    });
+
+    function animateCursorRing() {
+      ringX += (mouseX - ringX) * 0.15;
+      ringY += (mouseY - ringY) * 0.15;
+
+      cursorRing.style.left = `${ringX}px`;
+      cursorRing.style.top = `${ringY}px`;
+
+      requestAnimationFrame(animateCursorRing);
+    }
+
+    animateCursorRing();
+
+    hoverTargets.forEach((target) => {
+      target.addEventListener("mouseenter", () => {
+        cursorRing.classList.add("cursor-hover");
+      });
+
+      target.addEventListener("mouseleave", () => {
+        cursorRing.classList.remove("cursor-hover");
+      });
+    });
+  }
+
+  if (revealElements.length) {
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("revealed");
+          }
+        });
+      },
+      {
+        threshold: 0.15,
+      }
+    );
+
+    revealElements.forEach((element) => {
+      revealObserver.observe(element);
     });
   }
 });
