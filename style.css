@@ -381,6 +381,10 @@ body {
   color: var(--text-muted);
   margin-bottom: 48px;
 }
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+  color: #8b93a1;
+}
 
 .contact-form {
   background-color: #ffffff;

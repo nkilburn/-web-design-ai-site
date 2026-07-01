@@ -10,8 +10,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const cursorDot = document.querySelector(".cursor-dot");
   const cursorRing = document.querySelector(".cursor-ring");
   const hoverTargets = document.querySelectorAll(
-    "a, button, .work-card, .pill-button, input, textarea"
-  );
+  "a, .work-card, .pill-button, .nav-toggle, .hero-button, .contact-button"
+);
+
+
 
   const revealElements = document.querySelectorAll(
     ".about-section, .works-section, .contact-section, .work-card"
