@@ -7,16 +7,27 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <div id="top"></div>
   <header class="site-header">
     <div class="logo">
       <img src="logo.svg" alt="northninth logo" />
     </div>
 
-    <nav class="header-nav">
-      <a href="index.html#about">About Us</a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="site-menu" type="button">
+      <span class="nav-toggle-icon" aria-hidden="true">
+        <span></span>
+        <span></span>
+        <span></span>
+      </span>
+      <span class="nav-toggle-label">Menu</span>
+    </button>
+
+    <nav class="site-menu" id="site-menu" aria-label="Site navigation">
+      <a href="index.html">Home</a>
+      <a href="index.html#about">About</a>
       <a href="works.html">Works</a>
       <a href="automation.html">AI Automaton</a>
-      <a href="index.html#contact">Let’s Connect</a>
+      <a href="index.html#contact">Contact</a>
     </nav>
   </header>
 
@@ -45,6 +56,19 @@
         </p>
       </div>
     </section>
+
+    <footer class="site-footer">
+      <div class="footer-container">
+        <nav class="footer-nav">
+          <a href="index.html#about">About</a>
+          <a href="works.html">Works</a>
+          <a href="automation.html">AI Automaton</a>
+          <a href="index.html#contact">Contact</a>
+          <a href="#top">Back to top</a>
+        </nav>
+        <p class="footer-note">northninth — modern web design and AI automation.</p>
+      </div>
+    </footer>
   </main>
 </body>
 </html>

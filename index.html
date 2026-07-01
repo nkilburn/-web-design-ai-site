@@ -12,11 +12,21 @@
       <img src="logo.svg" alt="northninth logo" />
     </div>
 
-    <nav class="header-nav">
-      <a href="#about">About Us</a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="site-menu" type="button">
+      <span class="nav-toggle-icon" aria-hidden="true">
+        <span></span>
+        <span></span>
+        <span></span>
+      </span>
+      <span class="nav-toggle-label">Menu</span>
+    </button>
+
+    <nav class="site-menu" id="site-menu" aria-label="Site navigation">
+      <a href="index.html">Home</a>
+      <a href="index.html#about">About</a>
       <a href="works.html">Works</a>
       <a href="automation.html">AI Automaton</a>
-      <a href="#contact">Let’s Connect</a>
+      <a href="index.html#contact">Contact</a>
     </nav>
   </header>
 
@@ -100,24 +110,6 @@
       </div>
     </section>
 
-        <p class="about-text">
-          We design modern websites and practical automation systems that help
-          businesses improve their digital presence, reduce repetitive work, and
-          create better customer experiences.
-        </p>
-
-        <h3 class="about-subheading">
-          We build digital systems that are clean, useful, and built for real
-          business growth.
-        </h3>
-
-        <p class="about-text">
-          Our approach combines strategy, design, and workflow thinking so every
-          project feels polished on the front end and effective behind the scenes.
-        </p>
-      </div>
-    </section>
-
     <section class="contact-section" id="contact">
       <div class="contact-container">
         <p class="section-label">Contact</p>
@@ -197,6 +189,21 @@
         </form>
       </div>
     </section>
+
+    <footer class="site-footer">
+      <div class="footer-container">
+        <nav class="footer-nav">
+          <a href="#about">About</a>
+          <a href="works.html">Works</a>
+          <a href="automation.html">AI Automaton</a>
+          <a href="#contact">Contact</a>
+          <a href="#top">Back to top</a>
+        </nav>
+        <p class="footer-note">northninth — modern web design and AI automation.</p>
+      </div>
+    </footer>
   </main>
 </body>
 </html>
+<div class="cursor-dot"></div>
+<div class="cursor-ring"></div>
