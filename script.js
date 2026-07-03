@@ -18,11 +18,34 @@ document.addEventListener("DOMContentLoaded", () => {
   const revealElements = document.querySelectorAll(
     ".about-section, .works-section, .contact-section, .work-card"
   );
+  const scrollQuoteLines = document.querySelectorAll(".quote-line");
 
   let mouseX = 0;
   let mouseY = 0;
   let ringX = 0;
   let ringY = 0;
+
+  function updateQuoteScrollProgress() {
+    if (!scrollQuoteLines.length) return;
+
+    const windowHeight = window.innerHeight;
+
+    scrollQuoteLines.forEach((line) => {
+      const rect = line.getBoundingClientRect();
+      const lineDistance = windowHeight - rect.top;
+      const totalDistance = windowHeight + rect.height;
+      const progress = Math.min(
+        100,
+        Math.max(0, (lineDistance / totalDistance) * 100)
+      );
+
+      line.style.setProperty("--scroll-progress", `${progress}%`);
+    });
+  }
+
+  window.addEventListener("scroll", updateQuoteScrollProgress, { passive: true });
+  window.addEventListener("resize", updateQuoteScrollProgress);
+  updateQuoteScrollProgress();
 
   if (navToggles.length) {
     navToggles.forEach((navToggle) => {
