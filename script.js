@@ -29,14 +29,18 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!scrollQuoteLines.length) return;
 
     const windowHeight = window.innerHeight;
+    const start = windowHeight * 1.05;
+    const end = -windowHeight * 0.15;
 
-    scrollQuoteLines.forEach((line) => {
+    scrollQuoteLines.forEach((line, index) => {
       const rect = line.getBoundingClientRect();
-      const lineDistance = windowHeight - rect.top;
-      const totalDistance = windowHeight + rect.height;
+      const offset = index * 20;
       const progress = Math.min(
         100,
-        Math.max(0, (lineDistance / totalDistance) * 100)
+        Math.max(
+          0,
+          ((start - rect.top - offset) / (start - end)) * 100
+        )
       );
 
       line.style.setProperty("--scroll-progress", `${progress}%`);
@@ -159,4 +163,36 @@ document.addEventListener("DOMContentLoaded", () => {
       revealObserver.observe(element);
     });
   }
+
+  const scrollStaggerSections = document.querySelectorAll(".scroll-stagger-section");
+
+  function clamp(value, min, max) {
+    return Math.min(Math.max(value, min), max);
+  }
+
+  function updateScrollStagger() {
+    scrollStaggerSections.forEach((section) => {
+      const lines = section.querySelectorAll(".scroll-stagger-line");
+      const rect = section.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+
+      const sectionStart = windowHeight * 0.85;
+      const sectionEnd = windowHeight * 0.15;
+      const rawProgress = (sectionStart - rect.top) / (sectionStart - sectionEnd + rect.height);
+      const sectionProgress = clamp(rawProgress, 0, 1);
+
+      lines.forEach((line, index) => {
+        const staggerDelay = index * 0.18;
+        const localProgress = clamp((sectionProgress - staggerDelay) / 0.35, 0, 1);
+
+        const grayValue = Math.round(180 - localProgress * 175);
+        line.style.color = `rgb(${grayValue}, ${grayValue}, ${grayValue + 10})`;
+      });
+    });
+  }
+
+  updateScrollStagger();
+  window.addEventListener("scroll", updateScrollStagger);
+  window.addEventListener("resize", updateScrollStagger);
+
 });
